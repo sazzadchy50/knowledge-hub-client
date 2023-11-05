@@ -1,50 +1,55 @@
 import { Link, NavLink } from "react-router-dom";
-import { Collapse } from 'flowbite';
+import { Collapse } from "flowbite";
+import useAuth from "../../Hook/useAuth";
 const Navbar = () => {
- 
+  const { user, logOut, isLoading } = useAuth();
+  const handleLogOut = ()=>{
+    logOut()
+  }
+  console.log(user?.email, user?.displayName);
   const navLink = (
     <>
       <li>
         <NavLink
-           to="/"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          to="/"
+          className="block px-2 lg:px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
         >
           Home
         </NavLink>
       </li>
+
       <li>
         <NavLink
-           to="/allBlog"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          to="/allBlog"
+          className="block px-2 lg:px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
         >
           All Blog
         </NavLink>
       </li>
       <li>
         <NavLink
-           to="/addBlog"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          to="/addBlog"
+          className="block px-2 lg:px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
         >
           Add Blog
         </NavLink>
       </li>
       <li>
         <NavLink
-           to="/featuredBlogs"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          to="/featuredBlogs"
+          className="block px-2 lg:px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
         >
-          Featured Blog
+          Featured Blogs
         </NavLink>
       </li>
       <li>
         <NavLink
-           to="/wishlist"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          to="/wishlist"
+          className="block px-2 lg:px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
         >
           Wishlist
         </NavLink>
       </li>
-     
     </>
   );
   return (
@@ -74,33 +79,43 @@ const Navbar = () => {
                 alt="user photo"
               />
             </button>
-
+            {/* user avatar menu */}
             <div
               className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
               id="user-dropdown"
             >
               <div className="px-4 py-3">
-                <span className="block text-sm text-gray-900 dark:text-white">
-                  Bonnie Green
-                </span>
-                <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                  name@flowbite.com
-                </span>
+                {user?.displayName && (
+                  <span className="block text-sm text-gray-900 dark:text-white">
+                    {user?.displayName}
+                  </span>
+                )}
+
+                {user?.email && (
+                  <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+                    {user?.email}
+                  </span>
+                )}
               </div>
+
               <ul className="py-2" aria-labelledby="user-menu-button">
-               
                 <li>
                   <Link
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
-                    Sign out
+                    {user ? (
+                      <button onClick={handleLogOut}>Log Out</button>
+                    ) : (
+                      <button>
+                        <Link to="/login">Log in</Link>
+                      </button>
+                    )}
                   </Link>
                 </li>
               </ul>
             </div>
             <button
-              
               data-collapse-toggle="navbar-user"
               type="button"
               className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
@@ -126,9 +141,8 @@ const Navbar = () => {
             </button>
           </div>
           <div
-            className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 "
+            className=" items-center justify-between hidden w-full md:flex md:w-auto md:order-1 "
             id="navbar-user"
-         
           >
             <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               {navLink}
