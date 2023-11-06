@@ -7,12 +7,15 @@ import { FaLock } from "react-icons/fa";
 import Tilt from "react-parallax-tilt";
 import useAuth from "../../Hook/useAuth";
 import toast, { Toaster } from "react-hot-toast";
+import useAxios from "../../Hook/useAxios";
+
 // import { ListGroup } from "flowbite-react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logIn, googleLogin } = useAuth();
   const navigate = useNavigate();
+  const axios = useAxios()
 console.log(email, password);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,8 +24,10 @@ console.log(email, password);
 
     try {
       await logIn(email, password);
-      toast.success("Logged in", { id: toastId });
-     
+       toast.success("Logged in Successfully", { id: toastId });
+       axios.post("/add-blog")
+      setTimeout(()=>  navigate("/"), 2000)
+      // navigate("/");
     } catch (error) {
       toast.error(error.message, { id: toastId });
     }
@@ -33,8 +38,9 @@ console.log(email, password);
 
     try {
       await googleLogin(email, password);
-      toast.success("Logged in", { id: toastId });
-      navigate("/");
+      toast.success("Logged in successfully", { id: toastId });
+      setTimeout(()=> navigate("/"), 2000)
+      // navigate("/");
     } catch (error) {
       toast.error(error.message, { id: toastId });
       console.log(" errorrrrr", error);
@@ -179,7 +185,7 @@ console.log(email, password);
                 />
               </div>
             </div>
-
+            
             <button
               type="submit"
               className="w-full  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

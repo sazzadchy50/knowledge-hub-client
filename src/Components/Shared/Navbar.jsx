@@ -1,11 +1,19 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
 import { Collapse } from "flowbite";
 import useAuth from "../../Hook/useAuth";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../FirebaseAuth/AuthProvider";
 const Navbar = () => {
-  const { user, logOut, isLoading } = useAuth();
-  const handleLogOut = ()=>{
-    logOut()
-  }
+  const { user, isLoading } = useAuth();
+  const { logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+console.log(user);
+  // const handleLogOut = () => {
+  //   logOut();
+  //   console.log("clicked");
+  //   navigate("/login");
+  // };
+
   console.log(user?.email, user?.displayName);
   const navLink = (
     <>
@@ -73,11 +81,20 @@ const Navbar = () => {
               data-dropdown-placement="bottom"
             >
               <span className="sr-only">Open user menu</span>
-              <img
+              
+              {
+                user?  <img
                 className="w-8 h-8 rounded-full"
-                src="/docs/images/people/profile-picture-3.jpg"
+                src={user?.photoURL}
                 alt="user photo"
-              />
+              /> : 
+                <img
+                className="w-8 h-8 rounded-full"
+                src="https://i.ibb.co/xGXL2Gh/images-q-tbn-ANd9-Gc-Q2-V3yna-T18-Vgj-H2u-Gddnhn-QQaa-OT6nz-EOtw-usqp-CAU.jpg"
+                alt="user photo"
+              /> 
+
+              }
             </button>
             {/* user avatar menu */}
             <div
@@ -102,10 +119,10 @@ const Navbar = () => {
                 <li>
                   <Link
                     href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white text-center"
                   >
                     {user ? (
-                      <button onClick={handleLogOut}>Log Out</button>
+                      <button   onClick={logOut()}>Log Out</button>
                     ) : (
                       <button>
                         <Link to="/login">Log in</Link>

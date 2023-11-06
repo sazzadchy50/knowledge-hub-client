@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { Toaster } from "react-hot-toast";
 import Swal from "sweetalert2";
+import useAuth from "../../Hook/useAuth";
+import useAxios from "../../Hook/useAxios";
 
 const AddBlog = () => {
   const [selectedType, setSelectedType] = useState("");
+  const { user } = useAuth();
+  const axios = useAxios();
 
   const handleTypeChange = (e) => {
     setSelectedType(e.target.value);
@@ -11,53 +15,48 @@ const AddBlog = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
+
     const form = e.target;
     const image = form.image.value;
     const title = form.title.value;
-
     const shortDescription = form.shortDescription.value;
     const longDescription = form.longDescription.value;
-  
-    const type = selectedType;
+    const bloggerEmail = user?.email;
+    const category = selectedType;
+    const submissionTime = e.timeStamp;
+
     const newBlog = {
       image,
       title,
       shortDescription,
-      type,      
+      category,
       longDescription,
+      bloggerEmail,
+      submissionTime
     };
-    console.log( image,
-      title,
-      shortDescription,
-      type,      
-      longDescription,);
+    console.log(e.timeStamp);
+    console.log(newBlog);
 
-  //   //send data to the server
-  //   fetch(
-  //     "https://estore-server-ll89cnlgf-sazzads-projects-05d40223.vercel.app",
-  //     {
-  //       method: "POST",
-
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(newBrands),
-  //     }
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.insertedId) {
-  //         Swal.fire({
-  //           title: "Success",
-  //           text: "Product added successfully",
-  //           icon: "success",
-  //           confirmButtonText: "ok",
-  //         });
-  //       }
-  //     });
+    //send data to the server
+    fetch("http://localhost:5000/api/v1/add-blog", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newBlog),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            title: "Success",
+            text: "blog added successfully",
+            icon: "success",
+            confirmButtonText: "ok",
+          });
+        }
+      });
   };
-
-
 
   return (
     // <div classNameName="hero min-h-screen bg-base-200">
@@ -130,8 +129,8 @@ const AddBlog = () => {
     //             <select
     //               classNameName="select select-bordered
     //           "
-                  //   value ={selectedType}
-                  // onChange={handleTypeChange}
+    //   value ={selectedType}
+    // onChange={handleTypeChange}
     //             >
     //               <option disabled selected>
     //                 category
@@ -193,7 +192,7 @@ const AddBlog = () => {
     //     </div>
     //   </div>
     // </div>
-    <div  onSubmit={handleAdd}  className="container mx-auto mt-12 p-5">
+    <div onSubmit={handleAdd} className="container mx-auto mt-12 p-5">
       <form>
         <h2 className="text-3xl font-bold text-center mb-5">Add blog</h2>
         {/* title input */}
@@ -234,32 +233,37 @@ const AddBlog = () => {
         <div className="mb-5">
           <label
             htmlFor="category"
-            className ="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
           >
             Select your Category
           </label>
           <select
             id="category"
-            className ="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             onChange={handleTypeChange}
+            required
           >
-            <option disabled selected>Category</option>
+            <option disabled value="" selected>
+              Category
+            </option>
             <option>Food</option>
-            <option>France</option>
-            <option>Germany</option>
+            <option>Sports</option>
+            <option>Travel</option>
+            <option>Lifestyle</option>
+            <option>Technology</option>
           </select>
         </div>
         {/* short description */}
         <div className="relative z-0 w-full  group">
           <div id="short_description" className="py-2.5   ">
-          <label
-            htmlFor="category"
-            className ="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-           Short description
-          </label>
+            <label
+              htmlFor="category"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Short description
+            </label>
             <textarea
-            name="shortDescription"
+              name="shortDescription"
               id=" short_description"
               rows="4"
               className=" block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
@@ -267,23 +271,21 @@ const AddBlog = () => {
         
         "
               placeholder="short description here..."
+              required
             ></textarea>
           </div>
-
-         
-           
         </div>
         {/* long description */}
         <div className="relative z-0 w-full mb-6 group">
           <div id="long_description" className="py-2.5   ">
-          <label
-            htmlFor="category"
-            className ="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >
-           Long description
-          </label>
+            <label
+              htmlFor="category"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Long description
+            </label>
             <textarea
-            name="longDescription"
+              name="longDescription"
               id=" long_description"
               rows="4"
               className=" block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
@@ -291,10 +293,9 @@ const AddBlog = () => {
       
         "
               placeholder="short description here..."
+              required
             ></textarea>
           </div>
-
-         
         </div>
         {/* submit button */}
         <div className="w-full block">

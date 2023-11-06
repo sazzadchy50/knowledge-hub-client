@@ -21,8 +21,9 @@ console.log(name, email, image, password);
 
     try {
       await createUser(email, password);
-      toast.success("Logged in", { id: toastId });
-      navigate("/");
+      toast.success("Sign up in successfully", { id: toastId });
+      setTimeout(()=> navigate("/"), 2000)
+    
     } catch (error) {
       toast.error(error.message, { id: toastId });
 
@@ -30,15 +31,15 @@ console.log(name, email, image, password);
   };
 
   const handleGoogleLogin = async () => {
-    const toastId = toast.loading("Logging in ...");
+    const toastId = toast.loading("sign up in ...");
 
     try {
       await googleLogin(email, password);
-      toast.success("Logged in", { id: toastId });
-      navigate("/");
+      toast.success("Sign up in successfully", { id: toastId });
+      setTimeout(()=> navigate("/"), 2000)
     } catch (error) {
       toast.error(error.message, { id: toastId });
-      console.log("errorrrrrr", error);
+      console.log("error", error);
     }
   };
 
