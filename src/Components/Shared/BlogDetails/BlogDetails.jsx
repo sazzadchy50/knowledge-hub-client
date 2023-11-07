@@ -17,7 +17,7 @@ const BlogDetails = () => {
     // const { image, category, shortDescription, longDescription, title} = blog;
   console.log(blogDetail);
   console.log(blog);
-  d
+  
     return (
         isLoading? <p>loadingggggg...</p>:
         <div className="container mx-auto ">

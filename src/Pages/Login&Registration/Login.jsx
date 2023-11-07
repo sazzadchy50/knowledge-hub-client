@@ -16,7 +16,7 @@ const Login = () => {
   const { logIn, googleLogin } = useAuth();
   const navigate = useNavigate();
   const axios = useAxios()
-console.log(email, password);
+// console.log(email, password);
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -43,7 +43,7 @@ console.log(email, password);
       // navigate("/");
     } catch (error) {
       toast.error(error.message, { id: toastId });
-      console.log(" errorrrrr", error);
+      // console.log(" errorrrrr", error);
     }
   };
 

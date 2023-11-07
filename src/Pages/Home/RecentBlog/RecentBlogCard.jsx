@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const RecentBlogCard = ({blog}) => {
     const { image, category, shortDescription, title,_id } = blog;
-  console.log(blog);
+  // console.log(blog);
     return (
         <div>
             <div className=" bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700   h-full bg-">
