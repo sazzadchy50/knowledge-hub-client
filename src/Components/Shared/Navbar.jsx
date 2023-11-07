@@ -86,7 +86,7 @@ console.log(user);
               /> : 
                 <img
                 className="w-8 h-8 rounded-full"
-                src="https://i.ibb.co/xGXL2Gh/images-q-tbn-ANd9-Gc-Q2-V3yna-T18-Vgj-H2u-Gddnhn-QQaa-OT6nz-EOtw-usqp-CAU.jpg"
+                src="https://i.ibb.co/84vz9Vb/demo.jpg"
                 alt="user photo"
               /> 
 
