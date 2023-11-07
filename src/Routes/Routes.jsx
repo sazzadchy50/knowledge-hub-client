@@ -6,6 +6,7 @@ import Login from "../Pages/Login&Registration/Login";
 import Registration from "../Pages/Login&Registration/Registration";
 import AllBlog from "../Pages/AllBlog/AllBlog";
 import BlogDetails from "../Components/Shared/BlogDetails/BlogDetails";
+import Update from "../Components/update/Update";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/details/:id",
         element: <BlogDetails/>
+      },
+      {
+        path: "/update/:id",
+        element: <Update/>
       }
     ],
   },
