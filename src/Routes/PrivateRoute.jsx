@@ -1,6 +1,6 @@
 
 
-const Footer = () => {
+const PrivateRoute = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export default PrivateRoute;

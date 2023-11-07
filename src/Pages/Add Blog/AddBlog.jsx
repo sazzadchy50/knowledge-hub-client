@@ -15,7 +15,8 @@ const AddBlog = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-
+  
+    
     const form = e.target;
     const image = form.image.value;
     const title = form.title.value;
@@ -23,8 +24,9 @@ const AddBlog = () => {
     const longDescription = form.longDescription.value;
     const bloggerEmail = user?.email;
     const category = selectedType;
-    const submissionTime = e.timeStamp;
-
+    // const submissionTime = e.timeStamp;
+    const submissionTime = new Date();
+    console.log(e);
     const newBlog = {
       image,
       title,
@@ -32,9 +34,9 @@ const AddBlog = () => {
       category,
       longDescription,
       bloggerEmail,
-      submissionTime
+      submissionTime,
     };
-    console.log(e.timeStamp);
+  
     console.log(newBlog);
 
     //send data to the server
@@ -54,144 +56,15 @@ const AddBlog = () => {
             icon: "success",
             confirmButtonText: "ok",
           });
-        }
-      });
+
+          form.reset();
+        } 
+      });   
+      
+      
   };
 
   return (
-    // <div classNameName="hero min-h-screen bg-base-200">
-    //   <div classNameName="hero-content flex-col">
-    //     <div classNameName="text-center">
-    //       <h1 classNameName="text-5xl font-bold">Add Products</h1>
-    //     </div>
-    //     <div classNameName="card flex-shrink-0   shadow-2xl bg-base-100 w-[70vh]">
-    //       <form onSubmit={handleAdd} classNameName="card-body ">
-    //         {/* image and name */}
-    //         <div classNameName="flex gap-5">
-    //           <div classNameName="form-control w-1/2">
-    //             <label classNameName="label">
-    //               <span classNameName="label-text">Image</span>
-    //             </label>
-    //             <input
-    //               name="image"
-    //               type="text"
-    //               placeholder="Image"
-    //               classNameName="input input-bordered"
-    //               required
-    //             />
-    //           </div>
-    //           <div classNameName="form-control w-1/2">
-    //             <label classNameName="label">
-    //               <span classNameName="label-text">Name</span>
-    //             </label>
-    //             <input
-    //               name="name"
-    //               type="text"
-    //               placeholder="Name"
-    //               classNameName="input input-bordered"
-    //               required
-    //             />
-    //           </div>
-    //         </div>
-    //         {/* brand and price */}
-    //         <div classNameName="flex gap-5">
-    //           <div classNameName="form-control w-1/2">
-    //             <label classNameName="label">
-    //               <span classNameName="label-text">Brand Name</span>
-    //             </label>
-    //             <input
-    //               name="brandName"
-    //               type="text"
-    //               placeholder="Brand name"
-    //               classNameName="input input-bordered"
-    //               required
-    //             />
-    //           </div>
-    //           <div classNameName="form-control w-1/2">
-    //             <label classNameName="label">
-    //               <span classNameName="label-text">Price</span>
-    //             </label>
-    //             <input
-    //               name="price"
-    //               type="number"
-    //               placeholder="Price"
-    //               classNameName="input input-bordered"
-    //               required
-    //             />
-    //           </div>
-    //         </div>
-    //         {/*type and  rating */}
-    //         <div classNameName="flex gap-5 w-full">
-    //           <div classNameName="form-control w-1/2 max-w-xs">
-    //             <label classNameName="label">
-    //               <span classNameName="label-text">Type</span>
-    //             </label>
-    //             <select
-    //               classNameName="select select-bordered
-    //           "
-    //   value ={selectedType}
-    // onChange={handleTypeChange}
-    //             >
-    //               <option disabled selected>
-    //                 category
-    //               </option>
-    //               <option>Phone</option>
-    //               <option>Laptop</option>
-    //               <option>Watch</option>
-    //             </select>
-    //           </div>
-
-    //           <div classNameName="form-control w-1/2">
-    //             <label classNameName="label">
-    //               <span classNameName="label-text">Rating</span>
-    //             </label>
-    //             <input
-    //               name="rating"
-    //               type="number"
-    //               placeholder="Rating"
-    //               classNameName="input input-bordered"
-    //               required
-    //             />
-    //           </div>
-    //         </div>
-    //         {/* short description */}
-    //         <div classNameName="form-control w-full ">
-    //           <div classNameName="form-control">
-    //             <label classNameName="label">
-    //               <span classNameName="label-text">Short description</span>
-    //             </label>
-    //             <input
-    //               name="shortDescription"
-    //               type="text"
-    //               placeholder="Short Description"
-    //               classNameName="input input-bordered"
-    //               required
-    //             />
-    //           </div>
-    //           <div classNameName="form-control">
-    //             <label classNameName="label">
-    //               <span classNameName="label-text"> details</span>
-    //             </label>
-    //             <input
-    //               name="details"
-    //               type="text"
-    //               placeholder="details"
-    //               classNameName="input input-bordered"
-    //               required
-    //             />
-    //           </div>
-    //         </div>
-
-    //         <div classNameName="form-control mt-6">
-    //           <button classNameName="btn bg-purple-500 text-white ">
-    //             Add Product
-    //           </button>
-    //         </div>
-    //       </form>
-    //       {/* <Toaster /> */}
-    //     </div>
-    //   </div>
-    // </div>
     <div onSubmit={handleAdd} className="container mx-auto mt-12 p-5">
       <form>
         <h2 className="text-3xl font-bold text-center mb-5">Add blog</h2>

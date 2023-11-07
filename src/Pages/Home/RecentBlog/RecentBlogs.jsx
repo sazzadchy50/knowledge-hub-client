@@ -11,7 +11,7 @@ const RecentBlogs = () => {
       return axios.get("/recentBlog");
     },
   });
- 
+
 
   return (
    <div className="my-20 p-5">
@@ -21,7 +21,7 @@ const RecentBlogs = () => {
        {isLoading ? (
          <p>loading...</p>
        ) : (
-         recentBlog?.data.map((blog) =>
+        recentBlog?.data.slice(0,6).map((blog) =>
          <RecentBlogCard key={blog?._id} blog={blog}></RecentBlogCard>
          )
        )}
