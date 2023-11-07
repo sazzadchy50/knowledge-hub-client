@@ -28,7 +28,7 @@ console.log(blogs?.data);
   }
 if(isError){
   return <p>Something went wrong: {error}</p>
-}
+}p
 
   return (
     isLoading? <p>loading </p> :
