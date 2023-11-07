@@ -1,18 +1,14 @@
-import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Collapse } from "flowbite";
 import useAuth from "../../Hook/useAuth";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../FirebaseAuth/AuthProvider";
 const Navbar = () => {
-  const { user, isLoading } = useAuth();
+  const { user} = useAuth();
   const { logOut } = useContext(AuthContext);
-  const navigate = useNavigate();
+
 console.log(user);
-  // const handleLogOut = () => {
-  //   logOut();
-  //   console.log("clicked");
-  //   navigate("/login");
-  // };
+
 
   console.log(user?.email, user?.displayName);
   const navLink = (
