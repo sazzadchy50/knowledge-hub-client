@@ -11,6 +11,7 @@ const BlogDetails = () => {
   const axios = useAxios();
   const { user } = useAuth();
   const [comment, setComment] = useState();
+  
   const { data: blogDetail, isLoading } = useQuery({
     queryKey: ["blogDetail"],
     queryFn: () => {
@@ -20,6 +21,7 @@ const BlogDetails = () => {
 
   const blog = blogDetail?.data;
   const hookAxios = useAxios();
+  
   //comment handle
   const handleComment = (e) => {
     e.preventDefault();

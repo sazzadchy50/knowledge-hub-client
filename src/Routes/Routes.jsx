@@ -10,6 +10,7 @@ import Update from "../Components/update/Update";
 import Comments from "../Components/Shared/BlogDetails/Comments";
 import ErrorPage from "../Components/Error/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
+import Wishlist from "../Pages/Wishlist/Wishlist";
 
 
 const router = createBrowserRouter([
@@ -43,11 +44,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/update/:id",
-        element: <Update/>
+        element: <PrivateRoute> <Update/></PrivateRoute>
       },
       {
         path: "/comment/:id",
         element: <Comments/>
+      },
+      {
+        path: "/wishlist/",
+        element: <Wishlist/>
       },
       {
         path: "*",
