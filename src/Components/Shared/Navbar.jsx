@@ -64,7 +64,7 @@ console.log(user);
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/" className="flex items-center">
             <img
-              src="/src/assets/icons/logo.png"
+              src="https://i.ibb.co/GPWgPVy/default.png"
               className="w-32 mr-3"
               alt="Knowledge hub Logo"
             />

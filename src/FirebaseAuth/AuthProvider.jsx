@@ -74,7 +74,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       return unSubscribe;
     };
-  }, []);
+  }, [user?.email]);
 
   const values = {
     createUser,

@@ -140,10 +140,10 @@ const BlogDetails = () => {
       </div>
       {/* comment show in details page */}
       <div className=" mt-32 p-5 ">
-        <h2 className="text-2xl font-bold ">Comments: </h2>
-        <div className="border">
+        <h2 className="text-2xl font-bold mb-5">Comments: </h2>
+        <div className="border">   
           {
-            comments?.data.map((comment, idx) => <Comments key={idx} comment={comment}></Comments>)
+            comments?.data.map((comments, idx) => <Comments key={idx} comments={comments}></Comments>)
           }
         </div>
       </div>
