@@ -11,7 +11,7 @@ features and functionalities
 
 - wishlist: Users can wishlist any blog and get all wishlist blogs on the wishlist page.
 
--Add blogs: Users can add blogs to the blog page.d
+-Add blogs: Users can add blogs to the blog page.
 
 -update: User can update their blogs on the details page.
--Comment: The user can comment on other blogger blogs
+-Comment: The user can comment on other blogger blogs.
