@@ -39,32 +39,36 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const userEmail = currentUser?.email || user?.email
+      const userEmail = currentUser?.email || user?.email;
       const loggedUser = { email: userEmail };
       setUser(currentUser);
       console.log("current user", currentUser);
       if (currentUser) {
-       
-        axios.post(
-          "http://localhost:5000/api/v1/user/access-token",
-          loggedUser,
-          {
-            withCredentials: true,
-          }
-        )
-         .then(res => {
-          console.log('token response', res.data);
-         } )
+        axios
+          .post(
+            "https://knowledge-hub-server-hazel.vercel.app/api/v1/user/access-token",
+            loggedUser,
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log("token response", res.data);
+          });
 
         setLoading(false);
-
-      }else{
-        axios.post('http://localhost:5000/api/v1/user/logOut', loggedUser, {
-          withCredentials: true
-        })
-        .then(res => {
-          console.log(res.data);
-        })
+      } else {
+        axios
+          .post(
+            "https://knowledge-hub-server-hazel.vercel.app/api/v1/user/logOut",
+            loggedUser,
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+          });
       }
     });
     return () => {

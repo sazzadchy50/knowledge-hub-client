@@ -13,7 +13,6 @@ console.log(user);
   //   logOut()
   // ]
 
-  console.log(user?.email, user?.displayName);
   const navLink = (
     <>
       <li>

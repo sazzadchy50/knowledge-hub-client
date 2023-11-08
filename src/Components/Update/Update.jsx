@@ -38,7 +38,7 @@ const Update = () => {
       submissionTime,
     };
    
-    axios.patch(`http://localhost:5000/api/v1/allBlog/${id}`, newBlog, {
+    axios.patch(`https://knowledge-hub-server-hazel.vercel.app/api/v1/allBlog/${id}`, newBlog, {
         withCredentials: true
 
     })

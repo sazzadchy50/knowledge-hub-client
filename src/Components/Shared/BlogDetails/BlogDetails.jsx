@@ -3,28 +3,69 @@ import useAxios from "../../../Hook/useAxios";
 import { Link, useParams } from "react-router-dom";
 import useAuth from "../../../Hook/useAuth";
 import { useState } from "react";
-import { ListGroup } from "flowbite-react";
+import Swal from "sweetalert2";
+import Comments from "./Comments";
 
 const BlogDetails = () => {
   const { id } = useParams();
   const axios = useAxios();
   const { user } = useAuth();
-  const [comment , setComment] = useState()
+  const [comment, setComment] = useState();
   const { data: blogDetail, isLoading } = useQuery({
     queryKey: ["blogDetail"],
     queryFn: () => {
       return axios.get(`/allBlog/${id}`);
     },
   });
-  const blog = blogDetail?.data;
-  // const { image, category, shortDescription, longDescription, title} = blog;
-  console.log(blogDetail);
-  console.log(blog);
-console.log(comment);
-  const handleComment = e =>{
-    e.preventDefault()   
 
-  }
+  const blog = blogDetail?.data;
+  const hookAxios = useAxios();
+  //comment handle
+  const handleComment = (e) => {
+    e.preventDefault();
+
+    const commentField = {
+      blog_id: id,
+      comment,
+      userEmail: user?.email,
+      UserImage: user?.photoURL,
+      userName: user?.displayName,
+    };
+
+    // axios
+    //   .post("https://knowledge-hub-server-hazel.vercel.app/api/v1/user/comment", commentField, {
+    //     withCredentials: true,
+    //   })
+    axios
+      .post("http://localhost:5000/api/v1/user/comment", commentField, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        if (res.data.insertedId) {
+          Swal.fire({
+            title: "Success",
+            text: "Comment successfully",
+            icon: "success",
+            confirmButtonText: "ok",
+          });
+        }
+      });
+  };
+
+  // const { data: recentBlog, isLoading } = useQuery({
+  //   queryKey: ["recentBlog"],
+  //   queryFn: () => {
+  //     return axios.get("/recentBlog");
+  //   },
+  // });
+  const { data: comments } = useQuery({
+    queryKey: ["comment"],
+    queryFn: () => {
+      return axios.get(`http://localhost:5000/api/v1/user/comment/${id}`);
+    },
+  });
+  console.log(comments?.data);
+  // hookAxios.get(`http://localhost:5000/api/v1/user/comment/${id}`, )
 
   return isLoading ? (
     <p>loadingggggg...</p>
@@ -77,12 +118,12 @@ console.log(comment);
                 Your comment
               </label>
               <textarea
-              name="comment"
+                name="comment"
                 id="comment"
                 rows="4"
                 className="w-full px-0 text-sm text-gray-900 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                 placeholder="Write a comment..."
-                onBlur={(e)=>setComment(e.target.value)}
+                onBlur={(e) => setComment(e.target.value)}
                 required
               ></textarea>
             </div>
@@ -96,6 +137,15 @@ console.log(comment);
             </div>
           </div>
         </form>
+      </div>
+      {/* comment show in details page */}
+      <div className=" mt-32 p-5 ">
+        <h2 className="text-2xl font-bold ">Comments: </h2>
+        <div className="border">
+          {
+            comments?.data.map((comment, idx) => <Comments key={idx} comment={comment}></Comments>)
+          }
+        </div>
       </div>
     </div>
   );

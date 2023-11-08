@@ -15,8 +15,7 @@ const AddBlog = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-  
-    
+
     const form = e.target;
     const image = form.image.value;
     const title = form.title.value;
@@ -36,11 +35,11 @@ const AddBlog = () => {
       bloggerEmail,
       submissionTime,
     };
-  
+
     console.log(newBlog);
 
     //send data to the server
-    fetch("http://localhost:5000/api/v1/add-blog", {
+    fetch("https://knowledge-hub-server-hazel.vercel.app/api/v1/add-blog", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -58,10 +57,8 @@ const AddBlog = () => {
           });
 
           form.reset();
-        } 
-      });   
-      
-      
+        }
+      });
   };
 
   return (
