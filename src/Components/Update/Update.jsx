@@ -9,7 +9,7 @@ const Update = () => {
     const [selectedType, setSelectedType] = useState("");
   const { user } = useAuth();
   const axios = useAxios();
-    const id = useParams()
+    const {id} = useParams()
   const handleTypeChange = (e) => {
     setSelectedType(e.target.value);
   };
@@ -27,7 +27,7 @@ const Update = () => {
     const category = selectedType;
    
     const submissionTime = new Date();
-    console.log(e);
+   
     const newBlog = {
       image,
       title,
@@ -40,23 +40,38 @@ const Update = () => {
    
     axios.patch(`http://localhost:5000/api/v1/allBlog/${id}`, newBlog, {
         withCredentials: true
+
     })
     .then(res =>{
-        console.log(res.data);
-
-    })
-    .then((data) => {
-        if (data.insertedId) {
+      if (res.data.modifiedCount  > 0) {
+        Swal.fire({
+          title: "Success",
+          text: "blog update successfully",
+          icon: "success",
+          confirmButtonText: "ok",
+        });
+        
+        form.reset();
+      }else{
+       
           Swal.fire({
-            title: "Success",
-            text: "blog added successfully",
-            icon: "success",
+            title: "error",
+            text: "blog update failed",
+            icon: "error",
             confirmButtonText: "ok",
-          });
-
-          form.reset();
-        } 
+          });          
+        
+      }
+    }).catch((error)=>{
+      console.error("Update failed:", error);
+      Swal.fire({
+        title: "Error",
+        text: "Blog update failed",
+        icon: "error",
+        confirmButtonText: "OK",
       });
+    })
+  
         
 }
     return (
