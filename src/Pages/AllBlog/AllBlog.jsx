@@ -5,40 +5,44 @@ import { Collapse } from "flowbite";
 import { useState } from "react";
 import { Select } from "flowbite-react";
 import RecentBlogs from "../Home/RecentBlog/RecentBlogs";
-
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 const AllBlog = () => {
   // const [selected, setSelectedType] = useState("");
   const [category, setCategory] = useState("");
-  const [searchInput, setSearchInput] = useState("");
+  // const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
   const axios = useAxios();
+
   //get data with axios
   const getAllBlog = async () => {
     const res = await axios.get(
-      `/allBlog?category=${category}&title=${search}`
+      `/allBlog?category=${category}&search=${search}`,
+      { withCredentials: true }
     );
-    return res;
+      
+    return res.data;
   };
-  console.log(category);
+
   const {
     data: blogs,
-    isLoading,
-    isError,
-    error,
+    isLoading
+   
   } = useQuery({
     queryKey: ["allBlog", category, search],
     queryFn: getAllBlog,
   });
-  console.log(blogs?.data);
-  const handleSearch = () => {
-    setSearch(searchInput);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchText = e.target.search.value;
+    setSearch(searchText);
+    console.log(searchText);
   };
 
-  return isLoading ? (
-    <p>loading </p>
-  ) : (
+  return (
     <div className="p-5">
-      <form>
+      <form onSubmit={handleSearch}>
         <div className="flex container mx-auto mb-12 md:mt-5 ">
           <label
             htmlFor="search-dropdown"
@@ -79,16 +83,16 @@ const AllBlog = () => {
           <div className="relative w-full">
             <input
               type="search"
+              name="search"
               id="search-dropdown"
               className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
               placeholder="Search by title ....."
-              onChange={(e) => setSearchInput(e.target.value)}
+              // onChange={(e) => setSearchInput(e.target.value)}
               required
             />
             <button
               type="submit"
               className="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              onClick={handleSearch}
             >
               <svg
                 className="w-4 h-4"
@@ -113,18 +117,18 @@ const AllBlog = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 container mx-auto gap-5 ">
         {isLoading ? (
-          <p>loading....</p>
+          <div className="container mx-auto flex justify-center items-center">
+            <Skeleton width={600} count={4} />
+          </div>
         ) : (
-          blogs?.data?.map((blog) => (
-            <AllBlogCard
-              key={blog?._id}
-              blog={blog}
-             
-            ></AllBlogCard>
-          ))
+          blogs?.filter((blog) => blog?.bloggerEmail)
+            .map((blog) => (
+              <AllBlogCard key={blog?._id} blog={blog}></AllBlogCard>
+            ))
         )}
       </div>
     </div>
+  
   );
 };
 

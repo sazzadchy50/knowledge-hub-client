@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 
 const Newsletter = () => {
- const [newsletterClose, setNewsLetter] = useState()
+ const [newsletterClose, setNewsLetter] = useState(true)
     const  handleNewsletter = e =>{
 
         e.preventDefault()
@@ -25,6 +25,10 @@ const Newsletter = () => {
     const closeBanner = () => {
         setNewsLetter(false);
       };
+    //   if (!newsletterClose) {
+    //     return null;
+    //   }
+
     return (
        
 
@@ -56,3 +60,37 @@ const Newsletter = () => {
 };
 
 export default Newsletter;
+
+// const { BannerCollapseButton } = require('flowbite-react');
+// import { Banner ,BannerCollapseButton , Button, Label, TextInput } from 'flowbite-react';
+
+
+// import { HiX } from 'flowbite-react';
+
+
+
+// function Component() {
+//   return (
+//     <Banner>
+//       <div className="flex w-full items-center justify-between border-b border-gray-200 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-700">
+//         <div className="mx-auto flex w-full flex-shrink-0 items-center sm:w-auto">
+//           <form action="#" className="flex w-full flex-col items-center md:flex-row md:gap-x-3">
+//             <Label
+//               htmlFor="email"
+//               className="mb-2 mr-auto flex-shrink-0 text-sm font-medium text-gray-500 dark:text-gray-400 md:m-0 md:mb-0"
+//             >
+//               Sign up for our newsletter
+//             </Label>
+//             <TextInput id="email" placeholder="Enter your email" required type="email" />
+//             <Button type="submit">Subscribe</Button>
+//           </form>
+//         </div>
+//         <BannerCollapseButton color="gray" className="border-0 bg-transparent text-gray-500 dark:text-gray-400">
+//           <HiX className="h-4 w-4" />
+//         </BannerCollapseButton>
+//       </div>
+//     </Banner>
+//   );
+// }
+
+// export default Component;

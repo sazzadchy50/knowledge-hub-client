@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  console.log(user);
+
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -37,6 +37,12 @@ const AuthProvider = ({ children }) => {
     return signInWithPopup(auth, provider);
   };
 
+ const updateUserProfile = (name, image)=>{
+  setLoading(true);
+  return updateUserProfile(auth.currentUser,{
+    displayName: name, photoURL: image
+  })
+ }
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       const userEmail = currentUser?.email || user?.email;
@@ -67,7 +73,7 @@ const AuthProvider = ({ children }) => {
             }
           )
           .then((res) => {
-            console.log(res.data);
+            console.log('logout',res.data);
           });
       }
     });
@@ -83,6 +89,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     user,
     loading,
+    updateUserProfile
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 
 import { FaLock } from "react-icons/fa";
@@ -15,7 +15,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const { logIn, googleLogin } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const axios = useAxios()
+
 // console.log(email, password);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +30,7 @@ const Login = () => {
        toast.success("Logged in Successfully", { id: toastId });
        axios.post("/add-blog")
       setTimeout(()=>  navigate("/"), 2000)
+      // navigate(from, {replace: true});
       // navigate("/");
     } catch (error) {
       toast.error(error.message, { id: toastId });

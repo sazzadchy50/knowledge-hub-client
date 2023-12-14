@@ -12,7 +12,7 @@ const Registration = () => {
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
   const [password, setPassword] = useState("");
-  const { createUser, googleLogin } = useAuth();
+  const { createUser, googleLogin,updateUserProfile } = useAuth();
   const navigate = useNavigate();
 console.log(name, email, image, password);
   const handleSubmit = async (e) => {
@@ -21,9 +21,9 @@ console.log(name, email, image, password);
 
     try {
       await createUser(email, password);
-      toast.success("Sign up in successfully", { id: toastId });
-      setTimeout(()=> navigate("/"), 2000)
-    
+      updateUserProfile(name, image)     
+        toast.success("Sign up in successfully", { id: toastId });
+        setTimeout(()=> navigate("/"), 2000)   
     } catch (error) {
       toast.error(error.message, { id: toastId });
 

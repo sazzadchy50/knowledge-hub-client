@@ -11,6 +11,8 @@ import Comments from "../Components/Shared/BlogDetails/Comments";
 import ErrorPage from "../Components/Error/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import Wishlist from "../Pages/Wishlist/Wishlist";
+import FeaturedBlogs from "../Pages/FeaturedBlogs/FeaturedBlogs";
+import NoteBook from "../Pages/NoteBook/NoteBook";
 
 
 const router = createBrowserRouter([
@@ -52,7 +54,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/wishlist/",
-        element: <Wishlist/>
+        element: <PrivateRoute><Wishlist/></PrivateRoute>
+      },
+      {
+        path: "/featuredBlogs",
+        element: <FeaturedBlogs/>
+      },
+      {
+        path: "/noteBook",
+        element:<NoteBook/>
       },
       {
         path: "*",

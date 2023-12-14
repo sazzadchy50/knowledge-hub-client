@@ -1,23 +1,31 @@
-// import { useContext } from "react";
+
 
 import { Navigate, useLocation } from "react-router-dom";
-// import { AuthContext } from "../FirebaseAuth/AuthProvider";
+
 import useAuth from "../Hook/useAuth";
+
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 
 const PrivateRoute = ({ children }) => {
+  const { user, loading } = useAuth();
 
-const {user, loading} = useAuth()
+
+
   const location = useLocation();
-  console.log(user);
   if (loading) {
-    return <progress className="progress w-56"></progress>;
+    return (
+      <div className="container mx-auto grid justify-center items-center mt-32">         
+        <Skeleton width={700} count={10} />
+      </div>
+    );
   }
   if (user) {
     return children;
   }
 
-  return <Navigate state={location?.pathname} to="/login" replace></Navigate>;
+  return <Navigate to="/login" state={{from: location}} replace></Navigate>
 };
 
 export default PrivateRoute;

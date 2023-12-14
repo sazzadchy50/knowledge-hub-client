@@ -1,30 +1,31 @@
 import { useParams } from "react-router-dom";
 import useAxios from "../../Hook/useAxios";
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../Hook/useAuth";
 
-
+import auth from "../../FirebaseConfig/Firebase.config";
 
 const Wishlist = () => {
-    const {id} = useParams()
-    const {user} = useAuth()
-    const userEmail = user?.email
-    console.log(id);
-   const axios = useAxios()
+  // const {user} = useAuth()
+  // const userEmail = user?.email
 
-   const { data: wishlists } = useQuery({
+  const axios = useAxios();
+
+  const { data: wishlists } = useQuery({
     queryKey: ["wishlist"],
-    queryFn: () => {
-      return axios.get(`http://localhost:5000/api/v1/user/wishlist/${userEmail}`);
+    queryFn: async () => {
+      const userEmail = auth?.currentUser?.email;
+
+      console.log(userEmail);
+      const res = await axios.get(
+        `https://knowledge-hub-server-hazel.vercel.app/api/v1/user/wishlist/?userEmail=${userEmail}`,
+        { withCredentials: true }
+      );
+      return res;
     },
   });
- 
-    console.log(wishlists?.data);
-    return (
-        <div>
-            wishlist 
-        </div>
-    );
+
+  console.log(wishlists);
+  return <div>wishlist</div>;
 };
 
 export default Wishlist;
