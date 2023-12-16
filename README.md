@@ -2,7 +2,8 @@ website name : Knowledge Hub
 live link: https://knowledge-hub-ed3c8.web.app/
 
 features and functionalities
-
+- Empowered users to seamlessly note down thoughts, ideas, and important information in a user-friendly notebook interface.
+- Elevate user connectivity with a real-time Facebook chat option, allowing seamless communication within the platform.
 - Profile: Users can see their name, and email in the nav section.
 
 - Login: The user can log in with email, password, and Google account.
