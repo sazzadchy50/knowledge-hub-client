@@ -1,4 +1,4 @@
-website name : Knowledge Hub
+website name: Knowledge Hub
 live link: https://knowledge-hub-ed3c8.web.app/
 
 features and functionalities
