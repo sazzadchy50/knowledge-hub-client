@@ -1,7 +1,7 @@
 website name : Knowledge Hub
 live link: https://knowledge-hub-ed3c8.web.app/
 
-features and functionalities:
+features and functionalities
 - Empowered users to seamlessly note down thoughts, ideas, and important information in a user-friendly notebook interface.
 - Elevate user connectivity with a real-time Facebook chat option, allowing seamless communication within the platform.
 - Transform the wishlist page into an interactive hub where users can explore, engage, and interact with their wishlist blogs in a visually appealing and user-friendly environment.
